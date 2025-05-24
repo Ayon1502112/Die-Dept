@@ -4,6 +4,7 @@ st.title("নিচের button গুলো click করে, app গুলো 
 
 # Define buttons with their URLs
 urls = {
+    "Monthly All Die Maintenance (Dashboard)": "https://lookerstudio.google.com/reporting/6d689733-0d3c-4667-ac7f-ee96cd4f0523",
     "(Entry Form) Maintenance": "https://www.appsheet.com/start/a81e8891-6548-4994-80c5-d7ec4f7d8c29",
     "Maintenance (Dashboard)": "https://lookerstudio.google.com/reporting/5a415e63-ac18-46d1-bfc9-78eb60f9b943"
 }

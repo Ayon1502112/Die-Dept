@@ -29,18 +29,35 @@ st.markdown("""
             border-bottom: 2px solid #ecf0f1; /* Subtle bottom border */
         }
 
+        /* Styling for the search input field */
+        .stTextInput > div > div > input {
+            border-radius: 8px; /* Rounded corners for search bar */
+            border: 1px solid #ced4da; /* Light gray border */
+            padding: 10px 15px; /* Comfortable padding */
+            font-size: 1.1em;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .stTextInput > div > div > input:focus {
+            border-color: #80bdff; /* Blue border on focus */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Light blue shadow on focus */
+            outline: none; /* Remove default outline */
+        }
+
         /* Container for the buttons to group them and add a background/shadow */
         .button-container {
             display: flex;
             flex-direction: column; /* Stack buttons vertically */
-            gap: 20px; /* Space between buttons */
+            gap: 15px; /* Space between buttons */
             align-items: center; /* Center buttons horizontally */
             padding: 20px;
-            background-color: #f8f9fa; /* Very light gray background */
+            background-color: #ffffff; /* White background for the container */
             border-radius: 15px; /* Rounded corners for the container */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08); /* Softer, more pronounced shadow */
             max-width: 600px; /* Max width for the container */
             margin: 30px auto; /* Center the container on the page */
+            border: 1px solid #e0e0e0; /* Light border for the container */
         }
 
         /* Styling for the custom link buttons */
@@ -50,47 +67,32 @@ st.markdown("""
             justify-content: center; /* Center content horizontally */
             width: 100%; /* Take full width of the container */
             padding: 15px 25px; /* Generous padding */
-            background: linear-gradient(135deg, #3498db, #2980b9); /* Blue gradient background */
-            color: white; /* White text color */
-            border: none; /* No border */
+            background-color: #f0f2f6; /* Very light gray background */
+            color: #2c3e50; /* Dark text color for readability */
+            border: 1px solid #dcdcdc; /* Light gray border */
             border-radius: 10px; /* Rounded corners for buttons */
-            font-size: 1.2em; /* Larger font size for button text */
+            font-size: 1.1em; /* Slightly smaller font size for button text */
             font-weight: 600; /* Semi-bold text */
             text-decoration: none; /* Remove underline from links */
             text-align: center;
-            transition: all 0.3s ease; /* Smooth transitions for hover effects */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for buttons */
+            transition: all 0.2s ease-in-out; /* Smooth transitions for hover effects */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow for buttons */
             cursor: pointer; /* Indicate clickable element */
         }
 
         /* Hover effect for custom buttons */
         .custom-button:hover {
-            background: linear-gradient(135deg, #2980b9, #3498db); /* Reverse gradient on hover */
-            transform: translateY(-3px); /* Lift button slightly on hover */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+            background-color: #e0e2e6; /* Slightly darker light gray on hover */
+            transform: translateY(-2px); /* Lift button slightly on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhance shadow on hover */
+            border-color: #c0c0c0; /* Darker border on hover */
         }
 
         /* Styling for icons within the custom buttons */
         .custom-button i {
-            margin-right: 10px; /* Space between icon and text */
-            font-size: 1.3em; /* Slightly larger icon size */
-        }
-
-        /* Override default Streamlit button styling if any st.button() is used */
-        .stButton>button {
-            width: 100%;
-            border-radius: 10px;
-            border: none;
-            background-color: #3498db;
-            color: white;
-            font-size: 1.1em;
-            padding: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .stButton>button:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
+            margin-right: 12px; /* Space between icon and text */
+            font-size: 1.2em; /* Icon size */
+            color: #555; /* Slightly muted icon color */
         }
 
         /* General paragraph styling for the footer */
@@ -109,7 +111,7 @@ st.markdown('<h1 class="main-header">নিচের button গুলো click �
 
 # Define buttons with their URLs and Font Awesome icons
 # Each entry is a dictionary containing the URL and the icon class
-urls = {
+all_urls = {
     "Monthly All Die Maintenance (Dashboard)": {
         "url": "https://lookerstudio.google.com/reporting/6d689733-0d3c-4667-ac7f-ee96cd4f0523",
         "icon": "fas fa-chart-line" # Icon for a dashboard (chart line)
@@ -128,20 +130,35 @@ urls = {
     }
 }
 
+# Add a search input field
+# The key ensures Streamlit treats this widget uniquely across reruns
+search_query = st.text_input("Search applications...", "", key="search_input")
+
+# Filter the URLs based on the search query
+# Convert both the button name and the search query to lowercase for case-insensitive matching
+filtered_urls = {
+    name: data for name, data in all_urls.items()
+    if search_query.lower() in name.lower()
+}
+
 # Start the button container
 st.markdown('<div class="button-container">', unsafe_allow_html=True)
 
-# Iterate through the defined URLs and create a custom-styled button for each
-for name, data in urls.items():
-    url = data["url"]
-    icon = data["icon"]
-    # Use st.markdown to insert custom HTML for each button
-    # The 'target="_blank"' attribute ensures the link opens in a new tab
-    st.markdown(f"""
-        <a href="{url}" target="_blank" class="custom-button">
-            <i class="{icon}"></i> {name}
-        </a>
-    """, unsafe_allow_html=True)
+# Iterate through the filtered URLs and create a custom-styled button for each
+if filtered_urls: # Only display buttons if there are any matching the search
+    for name, data in filtered_urls.items():
+        url = data["url"]
+        icon = data["icon"]
+        # Use st.markdown to insert custom HTML for each button
+        # The 'target="_blank"' attribute ensures the link opens in a new tab
+        st.markdown(f"""
+            <a href="{url}" target="_blank" class="custom-button">
+                <i class="{icon}"></i> {name}
+            </a>
+        """, unsafe_allow_html=True)
+else:
+    # Display a message if no applications match the search
+    st.markdown("<p style='text-align: center; color: #7f8c8d;'>No applications found matching your search.</p>", unsafe_allow_html=True)
 
 # Close the button container
 st.markdown('</div>', unsafe_allow_html=True)

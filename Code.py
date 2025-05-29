@@ -117,13 +117,16 @@ all_urls = {
         "icon": "fas fa-chart-line" # Icon for a dashboard (chart line)
     },
     "(Entry Form) Maintenance": {
-        "url": "https://www.appsheet.com/start/a81e8891-6548-4994-80c5-d7ec4f7d8c29"
+        "url": "https://www.appsheet.com/start/a81e8891-6548-4994-80c5-d7ec4f7d8c29",
+        "icon": "fas fa-clipboard-list" # Icon for an entry form (clipboard list)
     },
     "For Foundry Maintenance": {
-        "url": "https://www.appsheet.com/start/66f77481-5c17-4959-8f4d-847319939c9a"
+        "url": "https://www.appsheet.com/start/66f77481-5c17-4959-8f4d-847319939c9a",
+        "icon": "fas fa-industry" # Icon for foundry (industry building)
     },
     "Maintenance (Dashboard)": {
-        "url": "https://lookerstudio.google.com/reporting/5a415e63-ac18-46d1-bfc9-78eb60f9b943"
+        "url": "https://lookerstudio.google.com/reporting/5a415e63-ac18-46d1-bfc9-78eb60f9b943",
+        "icon": "fas fa-tachometer-alt" # Another icon for a dashboard (tachometer)
     }
 }
 

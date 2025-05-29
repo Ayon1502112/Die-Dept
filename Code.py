@@ -5,13 +5,12 @@ import streamlit as st
 st.set_page_config(layout="centered", page_title="App Launcher", page_icon="🚀")
 
 # Inject custom CSS for styling the app
-# We use Font Awesome for icons and Inter for the font
+# We use Inter for the font
 st.markdown("""
     <style>
         /* Import Google Font 'Inter' */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        /* Import Font Awesome for icons */
-        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+        /* Font Awesome is no longer needed as icons are removed */
 
         /* Apply Inter font to all Streamlit elements */
         html, body, [class*="st-"] {
@@ -62,7 +61,7 @@ st.markdown("""
 
         /* Styling for the custom link buttons */
         .custom-button {
-            display: flex; /* Use flexbox for icon and text alignment */
+            display: flex; /* Use flexbox for text alignment */
             align-items: center;
             justify-content: center; /* Center content horizontally */
             width: 100%; /* Take full width of the container */
@@ -73,7 +72,7 @@ st.markdown("""
             border-radius: 10px; /* Rounded corners for buttons */
             font-size: 1.1em; /* Slightly smaller font size for button text */
             font-weight: 600; /* Semi-bold text */
-            text-decoration: none; /* Remove underline from links */
+            text-decoration: none; /* Explicitly remove underline from links */
             text-align: center;
             transition: all 0.2s ease-in-out; /* Smooth transitions for hover effects */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow for buttons */
@@ -88,12 +87,12 @@ st.markdown("""
             border-color: #c0c0c0; /* Darker border on hover */
         }
 
-        /* Styling for icons within the custom buttons */
-        .custom-button i {
-            margin-right: 12px; /* Space between icon and text */
-            font-size: 1.2em; /* Icon size */
-            color: #555; /* Slightly muted icon color */
-        }
+        /* Styling for icons within the custom buttons - REMOVED as icons are no longer used */
+        /* .custom-button i {
+            margin-right: 12px;
+            font-size: 1.2em;
+            color: #555;
+        } */
 
         /* General paragraph styling for the footer */
         .footer-text {
@@ -109,24 +108,20 @@ st.markdown("""
 # Using st.markdown with a custom class for styling
 st.markdown('<h1 class="main-header">নিচের button গুলো click করে, app গুলো open করা যাবে</h1>', unsafe_allow_html=True)
 
-# Define buttons with their URLs and Font Awesome icons
-# Each entry is a dictionary containing the URL and the icon class
+# Define buttons with their URLs (icons removed)
+# Each entry is a dictionary containing only the URL
 all_urls = {
     "Monthly All Die Maintenance (Dashboard)": {
-        "url": "https://lookerstudio.google.com/reporting/6d689733-0d3c-4667-ac7f-ee96cd4f0523",
-        "icon": "fas fa-chart-line" # Icon for a dashboard (chart line)
+        "url": "https://lookerstudio.google.com/reporting/6d689733-0d3c-4667-ac7f-ee96cd4f0523"
     },
     "(Entry Form) Maintenance": {
-        "url": "https://www.appsheet.com/start/a81e8891-6548-4994-80c5-d7ec4f7d8c29",
-        "icon": "fas fa-clipboard-list" # Icon for an entry form (clipboard list)
+        "url": "https://www.appsheet.com/start/a81e8891-6548-4994-80c5-d7ec4f7d8c29"
     },
     "For Foundry Maintenance": {
-        "url": "https://www.appsheet.com/start/66f77481-5c17-4959-8f4d-847319939c9a",
-        "icon": "fas fa-industry" # Icon for foundry (industry building)
+        "url": "https://www.appsheet.com/start/66f77481-5c17-4959-8f4d-847319939c9a"
     },
     "Maintenance (Dashboard)": {
-        "url": "https://lookerstudio.google.com/reporting/5a415e63-ac18-46d1-bfc9-78eb60f9b943",
-        "icon": "fas fa-tachometer-alt" # Another icon for a dashboard (tachometer)
+        "url": "https://lookerstudio.google.com/reporting/5a415e63-ac18-46d1-bfc9-78eb60f9b943"
     }
 }
 
@@ -148,12 +143,10 @@ st.markdown('<div class="button-container">', unsafe_allow_html=True)
 if filtered_urls: # Only display buttons if there are any matching the search
     for name, data in filtered_urls.items():
         url = data["url"]
-        icon = data["icon"]
-        # Use st.markdown to insert custom HTML for each button
-        # The 'target="_blank"' attribute ensures the link opens in a new tab
+        # Icons are removed, so no 'icon' variable is needed here
         st.markdown(f"""
             <a href="{url}" target="_blank" class="custom-button">
-                <i class="{icon}"></i> {name}
+                {name}
             </a>
         """, unsafe_allow_html=True)
 else:
